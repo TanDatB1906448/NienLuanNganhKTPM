@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} HomePage {% endblock %}
+
+{% block content %}
+<div class="col-6 mx-auto mt-5 text-center">
+    <form action="/recognize" method="post" enctype="multipart/form-data">
+        <p><input type="file" name="img" class="form-control" autocomplete="off" required></p>
+        <p><input type="submit" value="submit" class="btn btn-info"></p>
+    </form>
+    {% if fileURL %}
+        <div class="mt-5">
+            <img src="{{ fileURL }}" style="width: 400px;">
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
