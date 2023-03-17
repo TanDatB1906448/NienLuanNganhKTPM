@@ -5,7 +5,7 @@ import cv2
 import numpy as np
 import os
 
-flowers = ['daisy', 'dandelion', 'rose', 'sunflower', 'tulip']
+flowers = ['Cúc', 'Bồ công Anh', 'Hồng', 'Hướng Dương', 'Tulip']
 model = load_model(os.path.dirname(__file__) + r"\model.h5")
 
 
@@ -17,5 +17,6 @@ def predictAImage(imgPath):
 
         pred = model.predict(img)
         # print({flowers[x] : pred[0][x] for x in range(len(flowers))})
-        return jsonify({flowers[x] : int(pred[0][x]) for x in range(len(flowers))})
-    except: return None
+        return flowers[np.where(pred == 1)[1][0]]
+        # return {flowers[x] : int(pred[0][x]) for x in range(len(flowers))}
+    except: return "Error"

@@ -11,6 +11,9 @@
     {% if fileURL %}
         <div class="mt-5">
             <img src="{{ fileURL }}" style="width: 400px;">
+            {% if flowerName %}
+                <h6>Kết quả dự đoán: hoa {{ flowerName }}</h6>
+            {% endif %}
         </div>
     {% endif %}
 </div>

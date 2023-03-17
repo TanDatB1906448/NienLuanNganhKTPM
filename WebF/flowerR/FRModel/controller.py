@@ -18,8 +18,6 @@ def uploadImage():
                 fileName = "image" + os.path.splitext(imgName)[1]
                 image.save(os.path.join(current_app.config['UPLOAD_FOLDER'], fileName))
                 result = predictAImage(os.path.join(current_app.config['UPLOAD_FOLDER'], fileName))
-                print(result)
-                print(type(result))
-                return render_template("recognize.html", fileURL = "..\\static\\uploads\\" + fileName)
-    except: print("Except")
+                return render_template("recognize.html", fileURL = "..\\static\\uploads\\" + fileName, flowerName = result)
+    except: print("Error!")
     return render_template("recognize.html")
