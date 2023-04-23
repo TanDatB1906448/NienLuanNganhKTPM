@@ -19,4 +19,19 @@ def predictAImage(imgPath):
         # print({flowers[x] : pred[0][x] for x in range(len(flowers))})
         return flowers[np.where(pred == 1)[1][0]]
         # return {flowers[x] : int(pred[0][x]) for x in range(len(flowers))}
-    except: return "Error"
+    except:
+        return "Error"
+
+
+def getflowerID():
+    # read image file string data
+    filestr = request.files['file'].read()
+    # convert string data to numpy array
+    npimg = np.fromstring(filestr, np.uint8)
+    # convert numpy array to image
+    img = cv2.imdecode(npimg, cv2.IMREAD_UNCHANGED)
+    img = cv2.resize(img, (150, 150))
+    img = np.reshape(img, [1, 150, 150, 3])
+
+    pred = model.predict(img)
+    return jsonify({'flowerID': int(np.where(pred == 1)[1][0])})
