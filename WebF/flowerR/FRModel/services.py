@@ -30,8 +30,11 @@ def getflowerID():
     npimg = np.fromstring(filestr, np.uint8)
     # convert numpy array to image
     img = cv2.imdecode(npimg, cv2.IMREAD_UNCHANGED)
+
+
     img = cv2.resize(img, (150, 150))
     img = np.reshape(img, [1, 150, 150, 3])
 
     pred = model.predict(img)
+    
     return jsonify({'flowerID': int(np.where(pred == 1)[1][0])})

@@ -20,16 +20,15 @@ function getResult() {
     fetch(getResultOfRecAPI, options)
         .then(response => response.json())
         .then((data) => {
-            return flowers.filter((f) => f.flowerID == data.flowerID + 1)[0]
-        })
-        .then((flower) => {
-            console.log("AA")
-            console.log(flower)
-            var FIHTML = `
-            <h1 class=\"section-title\">${flower.flowerTen}</h1>
-            <h2>${flower.flowerTenKH}</h2>
-            <p>${flower.flowerMota}</p>
-            <a href=\#\" class=\"cta\">Xem thêm</a>`;
-            flowerResultInfo.innerHTML = FIHTML
+            fetch(`http://127.0.0.1:5000/getAFlower/${data.flowerID + 1}`)
+                .then(res => res.json())
+                .then((flower) => {
+                    var FIHTML = `
+                    <h1 class=\"section-title\">${flower.flowerTen}</h1>
+                    <h2>${flower.flowerTenKH}</h2>
+                    <p>${flower.flowerMota}</p>
+                    <a href=\#\" class=\"cta\">Xem thêm</a>`;
+                    flowerResultInfo.innerHTML = FIHTML
+                })
         })
 }

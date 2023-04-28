@@ -4,18 +4,26 @@ from flowerR.model import Flowers
 from flask import jsonify, request
 import traceback
 
-fSchema = FlowerSchema
+fSchema = FlowerSchema()
 fsSchema = FlowerSchema(many=True)
 
 
 def getAllFlowersService():
     data = Flowers.query.all()
+    print(data)
     if data:
         return fsSchema.jsonify(data)
-    else: return "No flowers has found!"
+    else: return {'message': 'No flower has been found'}
+
+def getAFlowerByIDService(flowerID):
+    flower = Flowers.query.get(flowerID)
+    if flower:
+        return fSchema.jsonify(flower)
+    else: return {'message': 'No flower has been found for the given ID'}
 
 
 def postAFlowerService():
+    #ghi nhận lại thông tin truyền vào từ người dùng
     flowerTen = request.json['flowerTen']
     flowerTenKH = request.json['flowerTenKH']
     flowerGioi = request.json['flowerGioi']
@@ -26,11 +34,12 @@ def postAFlowerService():
     flowerMota = request.json['flowerMota']
     flowerDacdiem = request.json['flowerDacdiem']
     flowerNoipb = request.json['flowerNoipb']
+
     try:
         newFlower = Flowers(flowerTen, flowerTenKH, flowerGioi, flowerBo, flowerHo, flowerNganh, flowerLop, flowerMota, flowerDacdiem, flowerNoipb)
         db.session.add(newFlower)
         db.session.commit()
-        return "Successful adding"
+        return fSchema.jsonify(newFlower)
     except:
         print(traceback.format_exc())
         return "Unsuccessful adding"

@@ -10,6 +10,10 @@ def homePage():
 def flowersPage():
     return render_template("flowers.html")
 
+@views.route("/flowers/add")
+def addFlowersPage():
+    return render_template("addAFlower.html")
+
 @views.route("/contact")
 def contactPage():
     return render_template("contact.html")
@@ -17,3 +21,8 @@ def contactPage():
 @views.route("/recognize")
 def recognitionPage():
     return render_template("recognize.html")
+
+@views.route('/test')
+def drawTest():
+    return "Trang test"
+

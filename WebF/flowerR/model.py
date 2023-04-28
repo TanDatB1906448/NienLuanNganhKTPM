@@ -88,5 +88,5 @@ class Flowers(db.Model):
         self.flowerNganh = flowerNganh
         self.flowerLop = flowerLop
         self.flowerMota = flowerMota
-        self.flowerDD = flowerDD
-        self.flowerNoiss = flowerNoiss
+        self.flowerDacdiem = flowerDD
+        self.flowerNoipb = flowerNoiss
