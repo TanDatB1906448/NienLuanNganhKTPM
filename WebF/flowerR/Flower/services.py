@@ -42,12 +42,12 @@ def postAFlowerService():
         return fSchema.jsonify(newFlower)
     except:
         print(traceback.format_exc())
-        return "Unsuccessful adding"
+        return {'message': "Unsuccessful adding"}
 
 def updateAFlowerService(flowerID):
     flower = Flowers.query.get(flowerID)
     if not flower:
-        return "Unsuccess"
+        return {'message': "Unsuccessful deleting"}, 404
     flower.flowerTen = request.json['flowerTen']
     flower.flowerTenKH = request.json['flowerTenKH']
     flower.flowerGioi = request.json['flowerGioi']
@@ -56,15 +56,16 @@ def updateAFlowerService(flowerID):
     flower.flowerNganh = request.json['flowerNganh']
     flower.flowerLop = request.json['flowerLop']
     flower.flowerMota = request.json['flowerMota']
-    flower.flowerDD = request.json['flowerDD']
-    flower.flowerNoiss = request.json['flowerNoiss']
+    flower.flowerDacdiem = request.json['flowerDacdiem']
+    flower.flowerNoipb = request.json['flowerNoipb']
     db.session.commit()
-    return "Successfully update"
+    return {'message': "Successfully delete"}
 
 def deleteAFlowerService(flowerID):
     flower = Flowers.query.get(flowerID)
     if flower:
         db.session.delete(flower)
         db.session.commit()
-        return "Successfully delete"
-    else: return "Unsuccessfully delete"
+        return {'message': "Successfully delete"}, 204
+    
+    else: return {'message': "Unsuccessfully delete"}, 404

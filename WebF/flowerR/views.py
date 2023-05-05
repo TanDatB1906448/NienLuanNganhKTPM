@@ -6,6 +6,10 @@ views = Blueprint("views", __name__)
 def homePage():
     return render_template("index.html")
 
+@views.route("/admin")
+def adminPage():
+    return render_template("admin.html")
+
 @views.route("/flowers")
 def flowersPage():
     return render_template("flowers.html")
@@ -13,6 +17,10 @@ def flowersPage():
 @views.route("/flowers/add")
 def addFlowersPage():
     return render_template("addAFlower.html")
+
+@views.route("/flowers/update")
+def updateFlowersPage():
+    return render_template("updateFlower.html")
 
 @views.route("/contact")
 def contactPage():
@@ -22,7 +30,5 @@ def contactPage():
 def recognitionPage():
     return render_template("recognize.html")
 
-@views.route('/test')
-def drawTest():
-    return "Trang test"
+
 

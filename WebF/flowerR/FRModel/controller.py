@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash, send_from_directory, current_app, jsonify
 from werkzeug.utils import secure_filename
 import os
-from flowerR.FRModel.services import (predictAImage, getflowerID)
+from flowerR.FRModel.services import (getflowerID)
 import traceback
 
 FGModel = Blueprint("FGModel", __name__)

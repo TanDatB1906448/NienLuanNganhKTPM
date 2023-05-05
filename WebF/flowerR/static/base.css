@@ -4,6 +4,10 @@
 	box-sizing: border-box;
 }
 
+.swal2-container {
+	zoom: 1.5;
+}
+
 :root {
 	--eerie-black: #1A1919;
 	--tea-green: #DBF0CC;
@@ -45,6 +49,70 @@ p {
 	line-height: 2.5rem;
 	font-weight: 300;
 	letter-spacing: 0.05rem;
+}
+
+.btn {
+	position: relative;
+	display: inline-flex;
+	height: 40px;
+	width: 30%;
+	border-radius: 5px;
+	/* margin: 0px 0px; */
+	padding: 0px 3px;
+	overflow: hidden;
+	transition: all .4s;
+}
+
+.btn .inner {
+	position: absolute;
+	width: 300%;
+	height: 100%;
+	left: -100%;
+	/* top: 0px; */
+	z-index: 1;
+	transition: all .4s;
+}
+
+.btn button {
+	height: 100%;
+	width: 100%;
+	border: none;
+	outline: none;
+	background: none;
+	color: white;
+	font-size: 10px;
+	cursor: pointer;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	z-index: 2;
+}
+
+.btn:hover {
+	transform: scale(1.03);
+}
+
+.btn:hover .inner {
+	left: 0;
+}
+
+.btn-submit .inner {
+	background: -webkit-linear-gradient(right, #1F984C, #128B3F, #046227, #03461C);
+}
+
+.btn-cancel .inner {
+	background: -webkit-linear-gradient(right, #AD3358, #A21A43, #7A0025, #4C0017);
+}
+
+.btn-modify .inner {
+	background: -webkit-linear-gradient(right, #A7F5FF, #8EDBE6, #66A9B3, #497980);
+}
+
+.btn-more .inner {
+	background: -webkit-linear-gradient(right, #FBFA93, #E2E28F, #B0AF67, #7E7D4A);
+}
+
+.btn-addflower .inner {
+	background: -webkit-linear-gradient(right, #294861, #2a454b, #0e1c26);
 }
 
 .section-title {
@@ -393,6 +461,13 @@ p {
 
 #services .service-item .cta:hover {
 	color: var(--eerie-black);
+}
+
+.admin-option {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 /* End Services Section */
