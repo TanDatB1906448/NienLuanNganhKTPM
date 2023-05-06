@@ -27,6 +27,11 @@ const flowerMotaInput = document.getElementById('flowerMota');
 const flowerDacdiemInput = document.getElementById('flowerDacdiem');
 const flowerNoipbInput = document.getElementById('flowerNoipb');
 
+form.addEventListener('reset', (event) => {
+    event.preventDefault();
+    resetForm();
+})
+
 form.addEventListener('submit', (event) => {
     event.preventDefault();
 

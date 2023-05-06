@@ -19,7 +19,7 @@ fetch(getFlowerInfoAPI)
                 <p>Lớp: ${flower.flowerLop}</p>
                 <p>Bộ: ${flower.flowerBo}</p>
                 <p>Họ: ${flower.flowerHo}</p>
-                <a href="#" class = 'cta'>Xem thêm</a>
+                <a href="/flowers/info?flowerID=${flower.flowerID}" class = 'cta'>Xem thêm</a>
             </div>
             `
         })

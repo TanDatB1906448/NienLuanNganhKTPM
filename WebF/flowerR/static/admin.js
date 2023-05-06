@@ -19,7 +19,7 @@ fetch(getFlowerInfoAPI, {method: 'GET'})
                 <p>Bộ: ${flower.flowerBo}</p>
                 <p>Họ: ${flower.flowerHo}</p>
                 <div class="admin-option">
-                    <div class="btn btn-more">
+                    <div class="btn btn-more" onclick="watchFlower(${flower.flowerID})">
                         <div class="inner"></div>
                         <button>Xem thêm</button>
                     </div>
@@ -44,6 +44,10 @@ const addButton = document.getElementById('addButton');
 addButton.addEventListener('click', (event) => {
     window.location = "/flowers/add"
 });
+
+function watchFlower(flowerID){
+    window.location = `/flowers/info?flowerID=${flowerID}`
+}
 
 function updateFlower(flowerID){
     console.log("Update")

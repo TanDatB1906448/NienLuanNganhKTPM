@@ -1,14 +1,12 @@
-{% extends "base.html" %}
+{% extends "baseAdmin.html" %}
 
 {% block title %} HomePage {% endblock %}
 
 {% block content %}
 <section id="addFlower">
     <div class="addFlower container">
-        <div class="form-top">
-            <h1 class="section-title">Thêm thông tin hoa</h1>
-        </div>
-        <div class=".form-bottom">
+        <div class="addFlowerForm">
+            <h2>Thêm thông tin hoa</h2>
             <form action="/flowers/add" id="flower-form" name="flower-form">
                 <div class="input-data">
                     <input type="text" id="flowerTen" name="flowerTen" required>
@@ -60,10 +58,14 @@
                     <div class="underline"></div>
                     <label for="">Nơi phân bố</label>
                 </div>
-                <div class="form-row submit-btn">
-                    <div class="input-data">
+                <div class="addFlowerOption">
+                    <div class="btn btn-input btn-submit">
                         <div class="inner"></div>
-                        <input type="submit" value="submit">
+                        <input type="submit" value="Thêm mới">
+                    </div>
+                    <div class="btn btn-input btn-cancel">
+                        <div class="inner"></div>
+                        <input type="reset" value="Hủy bỏ">
                     </div>
                 </div>
             </form>

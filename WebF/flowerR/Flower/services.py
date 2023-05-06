@@ -1,11 +1,12 @@
 from flowerR.extensions import ma, db
-from flowerR.schemas import FlowerSchema
-from flowerR.model import Flowers
-from flask import jsonify, request
+from flowerR.schemas import FlowerSchema, LogSchema
+from flowerR.model import Flowers, Log
+from flask import jsonify, request, session
 import traceback
 
 fSchema = FlowerSchema()
 fsSchema = FlowerSchema(many=True)
+LSchema = LogSchema()
 
 
 def getAllFlowersService():
@@ -13,17 +14,20 @@ def getAllFlowersService():
     print(data)
     if data:
         return fsSchema.jsonify(data)
-    else: return {'message': 'No flower has been found'}
+    else:
+        return {'message': 'No flower has been found'}
+
 
 def getAFlowerByIDService(flowerID):
     flower = Flowers.query.get(flowerID)
     if flower:
         return fSchema.jsonify(flower)
-    else: return {'message': 'No flower has been found for the given ID'}
+    else:
+        return {'message': 'No flower has been found for the given ID'}
 
 
 def postAFlowerService():
-    #ghi nhận lại thông tin truyền vào từ người dùng
+    # ghi nhận lại thông tin truyền vào từ người dùng
     flowerTen = request.json['flowerTen']
     flowerTenKH = request.json['flowerTenKH']
     flowerGioi = request.json['flowerGioi']
@@ -36,13 +40,20 @@ def postAFlowerService():
     flowerNoipb = request.json['flowerNoipb']
 
     try:
-        newFlower = Flowers(flowerTen, flowerTenKH, flowerGioi, flowerBo, flowerHo, flowerNganh, flowerLop, flowerMota, flowerDacdiem, flowerNoipb)
+        newFlower = Flowers(flowerTen, flowerTenKH, flowerGioi, flowerBo, flowerHo,
+                            flowerNganh, flowerLop, flowerMota, flowerDacdiem, flowerNoipb)
+        if 'adminID' in session:
+            newflowerID = Flowers.query.order_by(
+                Flowers.flowerID.desc()).first().flowerID + 1
+            newLog = Log(session['adminID'], newflowerID, "Add a new Flower")
+            db.session.add(newLog)
         db.session.add(newFlower)
         db.session.commit()
         return fSchema.jsonify(newFlower)
     except:
         print(traceback.format_exc())
-        return {'message': "Unsuccessful adding"}
+        return {'message': "Unsuccessful adding"}, 404
+
 
 def updateAFlowerService(flowerID):
     flower = Flowers.query.get(flowerID)
@@ -58,14 +69,21 @@ def updateAFlowerService(flowerID):
     flower.flowerMota = request.json['flowerMota']
     flower.flowerDacdiem = request.json['flowerDacdiem']
     flower.flowerNoipb = request.json['flowerNoipb']
+    if 'adminID' in session:
+        newLog = Log(session['adminID'], flowerID, "update a Flower")
+        db.session.add(newLog)
     db.session.commit()
     return {'message': "Successfully delete"}
+
 
 def deleteAFlowerService(flowerID):
     flower = Flowers.query.get(flowerID)
     if flower:
-        db.session.delete(flower)
+        if 'adminID' in session:
+            newLog = Log(session['adminID'], flowerID, "delete a Flower")
+            db.session.add(newLog)
+        db.session.delete(flower)        
         db.session.commit()
         return {'message': "Successfully delete"}, 204
-    
-    else: return {'message': "Unsuccessfully delete"}, 404
+    else:
+        return {'message': "Unsuccessfully delete"}, 404
